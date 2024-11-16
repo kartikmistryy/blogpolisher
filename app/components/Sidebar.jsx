@@ -47,7 +47,7 @@ const Sidebar = ({ changePrompt, currentPrompt }) => {
     }
     
     return (
-        <div className="flex flex-col max-w-[15vw] w-full">
+        <div className="flex flex-col max-w-[15vw] w-full max-h-[screen] overflow-y-scroll">
 
             <div className='flex flex-col p-0 py-4 gap-2'>
                 {userHistory.map((element) => (

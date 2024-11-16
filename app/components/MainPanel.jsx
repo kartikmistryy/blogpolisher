@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { generateResponse, saveData } from '../api/functions/query'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
@@ -8,6 +8,8 @@ import { useRouter } from 'next/navigation'
 const MainPanel = ({ currentPrompt, changePrompt }) => {
 
     const router = useRouter()
+
+    const responseRef = useRef(null)
 
     const [prompt, setPrompt] = useState("")
     const [result, setResult] = useState("")
@@ -20,7 +22,10 @@ const MainPanel = ({ currentPrompt, changePrompt }) => {
         .then(data => setResult(data))
       }
     }
-    const copyText = () => {}
+    
+    const copyText = () => {
+      navigator.clipboard.writeText(responseRef.current.value)
+    }
 
     const saveToDB = async() => {
       const user = session?.user.email
@@ -62,6 +67,7 @@ const MainPanel = ({ currentPrompt, changePrompt }) => {
               <button onClick={() => copyText()} className="text-xs px-3 py-0.5 h-6 w-fit bg-[#1579dd] text-white rounded-md">Copy</button>
             </span>
             <textarea   
+              ref={responseRef}
               type="text" 
               placeholder="🤖 Generated text will be displayed here..."
               value={result}

@@ -1,6 +1,7 @@
 "use client"
 
 import { signIn, signOut, useSession } from 'next-auth/react'
+import Image from 'next/image'
 import React from 'react'
 import { AiOutlineTwitter } from 'react-icons/ai'
 import { AiOutlineInstagram } from 'react-icons/ai'
@@ -17,20 +18,24 @@ const Navbar = () => {
           <h1 className="text-lg font-medium  text-gray-900">BlogPolisher</h1>
         </span>
 
-        <div className="flex flex-row">
+        <div className="flex flex-row items-center justify-center gap-4">
           <ul className="flex flex-row gap-4">
             <li><a className="text-2xl text-gray-700" href="https://x.com/kartikmistryy"><AiOutlineTwitter/></a></li>
             <li><a className="text-2xl text-gray-700" href="https://github.com/developedbykmistry"><AiOutlineGithub/></a></li>
             <li><a className="text-2xl text-gray-700" href="https://www.instagram.com/karrtikkk__/"><AiOutlineInstagram/></a></li>
             <li><a className="text-2xl text-gray-700" href="https://www.linkedin.com/in/kartikmistry19/"><FaLinkedin/></a></li>
           </ul>
-        </div>
 
-        {!session?.user ? (
-          <button onClick={() => signIn('google')}>Login</button>
+          {!session?.user ? (
+            <button className='border-[1px] border-gray-400 px-3 py-1 text-sm rounded-2xl bg-gray-800 text-white font-medium' onClick={() => signIn('google')}>Login</button>
         ): (
-          <button onClick={() => signOut()}>Logout</button>
+          <span className='flex flex-row justify-center items-center p-1 gap-2'>
+              <button className='border-[1px] border-gray-400 px-1.5 py-0.5 text-sm rounded-2xl' onClick={() => signOut()}>Logout</button>
+              <span className='rounded-full border-red-100'>
+              {session?.user.image ? <Image className='rounded-full' width={35} height={35} src={session?.user.image} alt='user-img'/> : ""}</span>
+          </span>
         )}
+        </div>
       </nav>
   )
 }

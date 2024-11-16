@@ -9,7 +9,6 @@ export async function GET(request, { params }) {
         console.log(userId)
         await connectToDB()
         const posts = await Post.find({userId: userId})
-        console.log(posts)
         return NextResponse.json(posts)
     }catch(err) {
         console.log(err)
