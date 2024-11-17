@@ -15,7 +15,7 @@ const Navbar = () => {
   return (
     <nav className="flex flex-row justify-between items-center py-2 px-4 h-[5vh] w-full border-b border-[#e5e5e5]">
         <span>
-          <h1 className="text-lg font-medium  text-gray-900">BlogPolisher</h1>
+          <h1 className="text-lg font-bold  text-gray-900">BlogPolisher</h1>
         </span>
 
         <div className="flex flex-row items-center justify-center gap-4">
@@ -27,12 +27,12 @@ const Navbar = () => {
           </ul>
 
           {!session?.user ? (
-            <button className='border-[1px] border-gray-400 px-3 py-1 text-sm rounded-2xl bg-gray-800 text-white font-medium' onClick={() => signIn('google')}>Login</button>
+            <button className='border-0 px-2 py-1 text-xs rounded-2xl bg-[#1579dd] text-white font-medium' onClick={() => signIn('google')}>Login</button>
         ): (
-          <span className='flex flex-row justify-center items-center p-1 gap-2'>
-              <button className='border-[1px] border-gray-400 px-1.5 py-0.5 text-sm rounded-2xl' onClick={() => signOut()}>Logout</button>
+          <span className='flex flex-row justify-center items-center p-1.5 gap-2'>
+              <button className='border-[1px] border-gray-400 px-2 py-1 text-xs rounded-2xl font-medium' onClick={() => signOut()}>Logout</button>
               <span className='rounded-full border-red-100'>
-              {session?.user.image ? <Image className='rounded-full' width={35} height={35} src={session?.user.image} alt='user-img'/> : ""}</span>
+              {session?.user.image ? <Image className='rounded-full' width={26} height={26} src={session?.user.image} alt='user-img'/> : ""}</span>
           </span>
         )}
         </div>

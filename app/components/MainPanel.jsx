@@ -13,13 +13,18 @@ const MainPanel = ({ currentPrompt, changePrompt }) => {
 
     const [prompt, setPrompt] = useState("")
     const [result, setResult] = useState("")
+    const [loading, setLoading] = useState(false)
 
     const {data: session } = useSession()
 
     const submit = () => {
       if(prompt){
+        setLoading(true)
         generateResponse(prompt)
-        .then(data => setResult(data))
+        .then(data => {
+          setResult(data)
+          setLoading(false)
+        })
       }
     }
     
@@ -63,17 +68,20 @@ const MainPanel = ({ currentPrompt, changePrompt }) => {
           <div className="flex flex-col w-full">
             <span className="flex flex-row justify-between items-center">
               <h1 className="text-sm py-3 text-gray-900">⚡️ Optimised content here..</h1>
-              <button onClick={() => saveToDB()} className="text-xs px-3 py-0.5 h-6 w-fit bg-green-500 text-white rounded-md">Save</button>
-              <button onClick={() => copyText()} className="text-xs px-3 py-0.5 h-6 w-fit bg-[#1579dd] text-white rounded-md">Copy</button>
+              <span className='flex flex-row gap-2 pr-5'>
+                <button onClick={() => saveToDB()} className=' border-0 px-3 py-1 text-sm rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-medium'>Save</button>
+                <button onClick={() => copyText()} className='border-[1px] border-[#2997ff] px-3 py-1 text-sm rounded-2xl bg-[] text-[#2997ff] font-medium'>Copy</button>
+              </span>
             </span>
             <textarea   
               ref={responseRef}
               type="text" 
-              placeholder="🤖 Generated text will be displayed here..."
               value={result}
-              className="text-gray-800 md:w-[45vw] w-full md:h-[82vh] h-[70vh] rounded-xl p-3 bg-transparent border-[#d2cfcf] bg-[#f9f9f9] shadow-sm text-sm border-[1px] outline-none  relative placeholder:text-gray-800 placeholder:font-normal"
+              placeholder={!loading ? '🤖 Generated text will be displayed here...': 'loading...'}
+              className={`text-gray-800 md:w-[45vw] w-full md:h-[82vh] h-[70vh] rounded-xl p-3 border-[#d2cfcf] bg-[#f9f9f9] shadow-sm text-sm border-[1px] outline-none  relative placeholder:text-gray-800 placeholder:font-normal ${result.length > 0 ? "bg-transparent" : "bg-gray-200 opacity-[0.75]"}`}
               onChange={(e) => setResult(e.target.value)}
-              />
+              >
+              </textarea>
           </div>
 
         </section>

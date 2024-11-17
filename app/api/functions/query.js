@@ -13,7 +13,7 @@ export async function generateResponse(prompt){
     const newPrompt = 
     prompt +
     `\n Rephrase this text for a real world blog with
-    \n- ${responseWordCount * 3} words atleast
+    \n- ${responseWordCount * 2} words atleast
     \n- ${responselanguageManner} manner
     \n Include keywords like ${responseKeywords}
     `
