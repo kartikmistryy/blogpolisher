@@ -1,10 +1,8 @@
 "use client"
 
-import { useState } from "react"
-
-export let responselanguageManner = ""
-export let responseWordCount = 200
-export let responseKeywords = []
+export var responselanguageManner = ""
+export var responseWordCount = 200
+export var responseKeywords = []
 
 export const changeLanguageManner = (updatedManner) => {
     responselanguageManner = updatedManner

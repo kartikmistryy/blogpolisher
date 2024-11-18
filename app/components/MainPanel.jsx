@@ -4,6 +4,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import { generateResponse, saveData } from '../api/functions/query'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import { GrRefresh} from 'react-icons/gr'
+import { responseKeywords, responseWordCount, responselanguageManner } from '../api/functions/data'
+
 
 const MainPanel = ({ currentPrompt, changePrompt }) => {
 
@@ -20,7 +23,7 @@ const MainPanel = ({ currentPrompt, changePrompt }) => {
     const submit = () => {
       if(prompt){
         setLoading(true)
-        generateResponse(prompt)
+        generateResponse(prompt, responseKeywords, responselanguageManner, responseWordCount)
         .then(data => {
           setResult(data)
           setLoading(false)
@@ -30,6 +33,11 @@ const MainPanel = ({ currentPrompt, changePrompt }) => {
     
     const copyText = () => {
       navigator.clipboard.writeText(responseRef.current.value)
+    }
+
+    const refreshContent = () => {
+      setPrompt("")
+      setResult("")
     }
 
     const saveToDB = async() => {
@@ -69,6 +77,9 @@ const MainPanel = ({ currentPrompt, changePrompt }) => {
             <span className="flex flex-row justify-between items-center">
               <h1 className="text-sm py-3 text-gray-900">⚡️ Optimised content here..</h1>
               <span className='flex flex-row gap-2 pr-5'>
+                <button className='h-8 p-2 flex justify-center items-center' onClick={() => refreshContent()}>
+                  <GrRefresh/>
+                </button>
                 <button onClick={() => saveToDB()} className=' border-0 px-3 py-1 text-sm rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-medium'>Save</button>
                 <button onClick={() => copyText()} className='border-[1px] border-[#2997ff] px-3 py-1 text-sm rounded-2xl bg-[] text-[#2997ff] font-medium'>Copy</button>
               </span>

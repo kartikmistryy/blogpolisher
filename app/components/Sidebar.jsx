@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { changeKeywords, changeLanguageManner, changeSelectedPrompt, changeWordCount } from '../api/functions/data'
 import { useSession } from 'next-auth/react'
 import { run } from '../api/functions/query'
+import uuid from 'react-uuid'
 
 const Sidebar = ({ changePrompt, currentPrompt }) => {
 
@@ -47,7 +48,7 @@ const Sidebar = ({ changePrompt, currentPrompt }) => {
     }
     
     return (
-        <div className="flex flex-col max-w-[15vw] w-full max-h-[screen] overflow-y-scroll border-r-[1px]">
+        <div className="flex flex-col max-w-[15vw] w-full max-h-[100vh] overflow-y-scroll border-r-[1px] pb-4">
             {userHistory.length >= 1 && (
                 <div className='flex flex-col p-0 py-4 gap-2'>
                 {userHistory.map((element) => (
@@ -97,7 +98,7 @@ const Sidebar = ({ changePrompt, currentPrompt }) => {
                 <div className="grid grid-cols-auto-fill gap-1 max-h-[350px] overflow-scroll">
                     {keywords.map((word) => {
                         return <span
-                        onClick={(e) => removeKeyword(e)} className="border-[1px] border-[#1579dd] text-[#1579dd] py-1 px-2 rounded-xl flex items-center justify-center text-xs w-fit hover:bg-[hsl(209,100%,95%)]" key={word}>{word}</span>
+                        onClick={(e) => removeKeyword(e)} className="border-[1px] border-[#1579dd] text-[#1579dd] py-1 px-2 rounded-xl flex items-center justify-center text-xs w-fit hover:bg-[hsl(209,100%,95%)]" key={uuid()}>{word}</span>
                     })}
                 </div>
             </span>

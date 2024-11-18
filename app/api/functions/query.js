@@ -1,21 +1,21 @@
 "use server"
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { responseKeywords, responseWordCount, responselanguageManner } from "./data";
 import { connectToDB } from "@/lib/db";
 import User from "@/models/user";
 import Post from "@/models/post";
 
 const genAI = new GoogleGenerativeAI(process.env.GENERATIVE_API_KEY)
 
-export async function generateResponse(prompt){
+export async function generateResponse(prompt, keywords, languageManner, wordCount){
+ 
     const model = genAI.getGenerativeModel({ model: "gemini-pro"});
     const newPrompt = 
     prompt +
     `\n Rephrase this text for a real world blog with
-    \n- ${responseWordCount * 2} words atleast
-    \n- ${responselanguageManner} manner
-    \n Include keywords like ${responseKeywords}
+    \n- strictly ${wordCount} words
+    \n- ${languageManner} manner
+    \n- Make sure to include keywords the following keywords: ${keywords}
     `
     const result = await model.generateContent(newPrompt);
     const response = result.response;

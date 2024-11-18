@@ -8,6 +8,7 @@ import { AiOutlineInstagram } from 'react-icons/ai'
 import { AiOutlineGithub } from 'react-icons/ai'
 import { FaLinkedin } from 'react-icons/fa'
 
+
 const Navbar = () => {
 
   const {data: session} = useSession()
