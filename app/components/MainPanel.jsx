@@ -59,7 +59,7 @@ const MainPanel = ({ currentPrompt, changePrompt }) => {
     }, [currentPrompt])
 
   return (
-    <div className='flex w-[85vw] h-full'>
+    <div className='flex md:w-[85vw] w-full h-full'>
         <section className="flex md:flex-row flex-col gap-5 md:ml-4 md:p-2 p-4  w-full">
           <div className="h-full md:w-[35vw] w-full">
             <h1 className="my-3 text-sm text-gray-900">👇 Your content here...</h1>
@@ -74,7 +74,7 @@ const MainPanel = ({ currentPrompt, changePrompt }) => {
           </div>
         
           <div className="flex flex-col w-full">
-            <span className="flex flex-row justify-between items-center">
+            <span className="flex flex-row justify-between items-center mb-2">
               <h1 className="text-sm py-3 text-gray-900">⚡️ Optimised content here..</h1>
               <span className='flex flex-row gap-2 pr-5'>
                 <button className='h-8 p-2 flex justify-center items-center' onClick={() => refreshContent()}>

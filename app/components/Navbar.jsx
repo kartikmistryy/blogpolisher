@@ -3,13 +3,13 @@
 import { signIn, signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import React from 'react'
-import { AiOutlineTwitter } from 'react-icons/ai'
+import { AiOutlineClose, AiOutlineMenu, AiOutlineTwitter } from 'react-icons/ai'
 import { AiOutlineInstagram } from 'react-icons/ai'
 import { AiOutlineGithub } from 'react-icons/ai'
 import { FaLinkedin } from 'react-icons/fa'
 
 
-const Navbar = () => {
+const Navbar = ({ responsive, setResponsive }) => {
 
   const {data: session} = useSession()
 
@@ -19,8 +19,8 @@ const Navbar = () => {
           <h1 className="text-lg font-bold  text-gray-900">BlogPolisher</h1>
         </span>
 
-        <div className="flex flex-row items-center justify-center gap-4">
-          <ul className="flex flex-row gap-4">
+        <div className="flex flex-row items-center justify-center gap-2">
+          <ul className="md:flex hidden flex-row gap-4">
             <li><a className="text-2xl text-gray-700" href="https://x.com/kartikmistryy"><AiOutlineTwitter/></a></li>
             <li><a className="text-2xl text-gray-700" href="https://github.com/developedbykmistry"><AiOutlineGithub/></a></li>
             <li><a className="text-2xl text-gray-700" href="https://www.instagram.com/karrtikkk__/"><AiOutlineInstagram/></a></li>
@@ -29,13 +29,21 @@ const Navbar = () => {
 
           {!session?.user ? (
             <button className='border-0 px-2 py-1 text-xs rounded-2xl bg-[#1579dd] text-white font-medium' onClick={() => signIn('google')}>Login</button>
-        ): (
+          ): (
           <span className='flex flex-row justify-center items-center p-1.5 gap-2'>
               <button className='border-[1px] border-gray-400 px-2 py-1 text-xs rounded-2xl font-medium' onClick={() => signOut()}>Logout</button>
               <span className='rounded-full border-red-100'>
               {session?.user.image ? <Image className='rounded-full' width={26} height={26} src={session?.user.image} alt='user-img'/> : ""}</span>
           </span>
-        )}
+          )}
+
+          <span onClick={() => setResponsive(!responsive)} className='m-0 md:hidden flex'>
+            {
+              responsive ? 
+               <AiOutlineMenu className='text-xl'/>
+            : <AiOutlineClose className='text-xl'/>
+            }
+          </span>
         </div>
       </nav>
   )

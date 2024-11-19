@@ -6,7 +6,7 @@ import { useSession } from 'next-auth/react'
 import { run } from '../api/functions/query'
 import uuid from 'react-uuid'
 
-const Sidebar = ({ changePrompt, currentPrompt }) => {
+const Sidebar = ({ changePrompt, currentPrompt, responsive }) => {
 
     const languages = ["💼 Professional", "🤝 Friendly", "📚 Educative", "🤭 Sarcastic"]
 
@@ -48,7 +48,7 @@ const Sidebar = ({ changePrompt, currentPrompt }) => {
     }
     
     return (
-        <div className="flex flex-col max-w-[15vw] w-full max-h-[100vh] overflow-y-scroll border-r-[1px] pb-4">
+        <div className={`absolute md:relative top-[5vh] md:top-0 right-0 md:left-0 bg-white flex-col md:max-w-[15vw] max-w-[80%] w-full max-h-[100vh] h-screen overflow-y-scroll border-r-[1px] pb-4 z-10 ${responsive ? 'hidden': 'flex'}`}>
             {userHistory.length >= 1 && (
                 <div className='flex flex-col p-0 py-4 gap-2'>
                 {userHistory.map((element) => (
