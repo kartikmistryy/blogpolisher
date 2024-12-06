@@ -48,4 +48,5 @@ export const run = async(email) => {
     const userPosts = await fetch(`${process.env.NEXT_URL}/api/post/${userId}`)
     const posts = await userPosts.json()
     return posts
-}  
+} 
+ 

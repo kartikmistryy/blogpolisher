@@ -3,8 +3,8 @@ import Main from "./components/Main";
 
 export default async function Home() {
 
-  const req = await fetch(`${process.env.NEXT_URL}/api/user`, {cache: 'no-store'})
-  const data = await req.json()
+  // const req = await fetch(`${process.env.NEXT_URL}/api/user`, {cache: 'no-store'})
+  // const data = await req.json()
 
 
 
