@@ -46,6 +46,12 @@ const Sidebar = ({ changePrompt, currentPrompt, responsive }) => {
             return key != e.target.innerText
         }))
     }
+
+    useEffect(() => {
+        setLanguageManner("")
+        setKeywords([])
+        setWordCount(200)
+    }, [])
     
     return (
         <div className={`absolute md:relative top-[5vh] md:top-0 right-0 md:left-0 bg-white flex-col md:max-w-[15vw] max-w-[80%] w-full max-h-[100vh] h-screen overflow-y-scroll border-r-[1px] pb-4 z-10 ${responsive ? 'hidden': 'flex'}`}>
