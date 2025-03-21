@@ -1,38 +1,49 @@
 import NextAuth from "next-auth";
-import Google from "next-auth/providers/google";
+import GoogleProvider from "next-auth/providers/google";
 import User from "@/models/user";
 import { connectToDB } from "@/lib/db";
 
-const AuthOptions = {
+const authOptions = {
   providers: [
-    Google({
+    GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
-  secret: process.env.NEXTAUTH_SECRET, // ✅ Keep only one
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async signIn({ user, account }) {
-      if (account.provider === "google") {
-        const { name, email, image } = user;
-        try {
-          await connectToDB();
-          const userExists = await User.findOne({ email });
+    async signIn({ profile }) {
+      if (!profile) return false;
 
-          if (!userExists) {
-            const newUser = new User({ name, email, image });
-            await newUser.save();
-          }
-          return true; // Continue with the sign-in process
-        } catch (error) {
-          console.error("Error during sign-in:", error);
-          return false; // Cancel the sign-in process if there's an error
+      const { name, email, picture } = profile;
+
+      try {
+        await connectToDB();
+        const userExists = await User.findOne({ email });
+
+        if (!userExists) {
+          const newUser = new User({
+            name,
+            email,
+            image: picture,
+          });
+          await newUser.save();
         }
+        return true; // Continue sign-in
+      } catch (error) {
+        console.error("Error during sign-in:", error);
+        return false; // Cancel sign-in on error
       }
-      return true;
     },
-  }
+    async session({ session, user }) {
+      if (session?.user && user) {
+        session.user.id = user.id;
+      }
+      return session;
+    },
+  },
 };
-const handler = NextAuth(AuthOptions);
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
