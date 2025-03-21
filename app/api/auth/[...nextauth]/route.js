@@ -10,7 +10,7 @@ const AuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
-  secret: process.env.NEXTAUTH_SECRET, 
+  secret: process.env.NEXTAUTH_SECRET, // ✅ Keep only one
   callbacks: {
     async signIn({ user, account }) {
       if (account.provider === "google") {
@@ -33,7 +33,6 @@ const AuthOptions = {
     },
   }
 };
-
 const handler = NextAuth(AuthOptions);
 
 export { handler as GET, handler as POST };

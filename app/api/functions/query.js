@@ -9,7 +9,7 @@ const genAI = new GoogleGenerativeAI(process.env.GENERATIVE_API_KEY)
 
 export async function generateResponse(prompt, keywords, languageManner, wordCount){
  
-    const model = genAI.getGenerativeModel({ model: "gemini-pro"});
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash"});
     const newPrompt = 
     prompt +
     `\n Rephrase this text for a real world blog with
